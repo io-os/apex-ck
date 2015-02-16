@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="text/javascript" src="../vendor/ckeditor/ckeditor.js"></script>
+    <style>
+      body { margin: 0px; padding: 0px; }
+    </style>
+  </head>
+  <body onResize="resizeHandle();">
+    <div style="width:100%; height:100%; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px;" id="editorcontainer">
+    <div style="width:100%; height:100%;" name="ckeditor" id="ckeditor"></div>
+    </div>
+    <script type="text/javascript">
+      var editorElem = document.getElementById("editorcontainer");
+
+      function loaded() {
+        var editor = CKEDITOR.replace("ckeditor", {
+           on : {
+              // maximize the editor on startup
+              'instanceReady' : function( evt ) {
+                 window.editor = evt.editor;
+                 evt.editor.resize("100%", editorElem.clientHeight);
+              }
+           }
+        });
+      }
+
+      function resizeHandle()
+      {
+        if (window.editor)
+        {
+          editor.resize("100%", editorElem.clientHeight);
+        }
+      }
+
+      window.addEventListener("load", function load(event) {
+        window.removeEventListener("load", load, false);
+        loaded();
+      }, false);
+    </script>
+  </body>
+</html>
